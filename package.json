@@ -1,0 +1,10 @@
+{
+  "name": "walker",
+  "description": "A simple directory tree walker.",
+  "version": "0.0.1",
+  "author": "Naitik Shah <n@daaku.org>",
+  "keywords": ["utils", "fs", "filesystem"],
+  "directories": { "lib": "./lib" },
+  "main": "./lib/main",
+  "engines": { "node": ">= 0.2.3" }
+}
