@@ -5,5 +5,9 @@
   "author": "Naitik Shah <n@daaku.org>",
   "keywords": ["utils", "fs", "filesystem"],
   "directories": { "lib": "./lib" },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nshah/nodejs-walker"
+  },
   "engines": { "node": ">= 0.2.3" }
 }
