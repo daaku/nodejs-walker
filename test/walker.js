@@ -1,8 +1,16 @@
 var Walker = require('walker')
+  , fs = require('fs')
 
 const SIMPLE_WALK = __dirname + '/fixture-simple-walk'
 const ERROR_WALK = __dirname + '/fixture-error-walk'
 const BAD_START_WALK = __dirname + '/fixture-error-walk/d'
+
+// create/remove an in-accessable empty directory to trigger errors
+try {
+  fs.chmodSync(BAD_START_WALK, 0600)
+  fs.rmdirSync(BAD_START_WALK)
+} catch(e) {}
+try { fs.mkdirSync(BAD_START_WALK, 0200) } catch(e) {}
 
 exports['simple walk'] = function(assert, beforeExit) {
   var n = 9
