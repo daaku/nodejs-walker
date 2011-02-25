@@ -1,5 +1,6 @@
 var Walker = require('walker')
   , fs = require('fs')
+  , assert = require('assert')
 
 const SIMPLE_WALK = __dirname + '/fixture-simple-walk'
 const ERROR_WALK = __dirname + '/fixture-error-walk'
@@ -12,7 +13,7 @@ try {
 } catch(e) {}
 try { fs.mkdirSync(BAD_START_WALK, 0200) } catch(e) {}
 
-exports['simple walk'] = function(assert, beforeExit) {
+exports['simple walk'] = function(beforeExit) {
   var n = 9
 
   Walker(SIMPLE_WALK)
@@ -44,7 +45,7 @@ exports['simple walk'] = function(assert, beforeExit) {
   })
 }
 
-exports['simple walk, exclude sub-directory tree'] = function(assert, beforeExit) {
+exports['simple walk, exclude sub-directory tree'] = function(beforeExit) {
   var n = 5
 
   Walker(SIMPLE_WALK)
@@ -75,7 +76,7 @@ exports['simple walk, exclude sub-directory tree'] = function(assert, beforeExit
   })
 }
 
-exports['error walk'] = function(assert, beforeExit) {
+exports['error walk'] = function(beforeExit) {
   var n = 6
 
   Walker(ERROR_WALK)
@@ -104,7 +105,7 @@ exports['error walk'] = function(assert, beforeExit) {
   })
 }
 
-exports['bad start'] = function(assert, beforeExit) {
+exports['bad start'] = function(beforeExit) {
   var n = 2
 
   Walker(BAD_START_WALK)
