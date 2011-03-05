@@ -7,7 +7,7 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "http://github.com/nshah/nodejs-walker"
+    "url": "git://github.com/nshah/nodejs-walker.git"
   },
   "engines": { "node": ">= 0.4.1" }
 }
