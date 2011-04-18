@@ -1,4 +1,4 @@
-var Walker = require('walker')
+var Walker = require('../index')
   , fs = require('fs')
   , assert = require('assert')
 

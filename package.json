@@ -1,7 +1,7 @@
 {
   "name": "walker",
   "description": "A simple directory tree walker.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Naitik Shah <n@daaku.org>",
   "keywords": ["utils", "fs", "filesystem"],
   "main": "index",
@@ -9,5 +9,6 @@
     "type": "git",
     "url": "git://github.com/nshah/nodejs-walker.git"
   },
+  "scripts": { "test": "./node_modules/.bin/expresso" },
   "engines": { "node": ">= 0.4.1" }
 }

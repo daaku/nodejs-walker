@@ -2,7 +2,7 @@ module.exports = Walker
 
 var path = require('path')
   , fs = require('fs')
-  , sys = require('sys')
+  , util = require('util')
   , EventEmitter = require('events').EventEmitter
 
 /**
@@ -11,16 +11,13 @@ var path = require('path')
  * @param root {String} the directory to start with
  */
 function Walker(root) {
-  if (!(this instanceof Walker)) {
-    return new Walker(root)
-  }
-
+  if (!(this instanceof Walker)) return new Walker(root)
   EventEmitter.call(this)
   this.pending = 0
   this.go(root)
   this._filterDir = function() { return true }
 }
-sys.inherits(Walker, EventEmitter)
+util.inherits(Walker, EventEmitter)
 
 /**
  * Setup a function to filter out directory entries.
