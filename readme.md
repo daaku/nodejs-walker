@@ -21,7 +21,7 @@ the entire API:
       .on('error', function(er, target, stat) {
         console.log('Got error ' + er + ' on target ' + target)
       })
-      .on('end', function(file) {
+      .on('end', function() {
         console.log('Walker is done.')
       })
 
