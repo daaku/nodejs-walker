@@ -37,8 +37,8 @@ directory trees. This shows the entire API; everything is optional:
       .on('characterDevice', function(characterDevice, stat) {
         console.log('Got characterDevice: ' + characterDevice)
       })
-      .on('error', function(er, target, stat) {
-        console.log('Got error ' + er + ' on target ' + target)
+      .on('error', function(er, entry, stat) {
+        console.log('Got error ' + er + ' on entry ' + entry)
       })
       .on('end', function() {
         console.log('All files traversed.')

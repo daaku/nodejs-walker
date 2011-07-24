@@ -43,62 +43,62 @@ Walker.prototype.filterDir = function(fn) {
 /**
  * Process a file or directory.
  */
-Walker.prototype.go = function(target) {
+Walker.prototype.go = function(entry) {
   var that = this
   this._pending++
 
-  fs.lstat(target, function(er, stat) {
+  fs.lstat(entry, function(er, stat) {
     if (er) {
-      that.emit('error', er, target, stat)
+      that.emit('error', er, entry, stat)
       that.doneOne()
       return
     }
 
     if (stat.isDirectory()) {
-      if (!that._filterDir(target, stat)) {
+      if (!that._filterDir(entry, stat)) {
         that.doneOne()
       } else {
-        fs.readdir(target, function(er, files) {
+        fs.readdir(entry, function(er, files) {
           if (er) {
-            that.emit('error', er, target, stat)
+            that.emit('error', er, entry, stat)
             that.doneOne()
             return
           }
 
-          that.emit('entry', target, stat)
-          that.emit('dir', target, stat)
+          that.emit('entry', entry, stat)
+          that.emit('dir', entry, stat)
           files.forEach(function(part) {
-            that.go(path.join(target, part))
+            that.go(path.join(entry, part))
           })
           that.doneOne()
         })
       }
     } else if (stat.isSymbolicLink()) {
-      that.emit('entry', target, stat)
-      that.emit('symlink', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('symlink', entry, stat)
       that.doneOne()
     } else if (stat.isBlockDevice()) {
-      that.emit('entry', target, stat)
-      that.emit('blockDevice', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('blockDevice', entry, stat)
       that.doneOne()
     } else if (stat.isCharacterDevice()) {
-      that.emit('entry', target, stat)
-      that.emit('characterDevice', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('characterDevice', entry, stat)
       that.doneOne()
     } else if (stat.isFIFO()) {
-      that.emit('entry', target, stat)
-      that.emit('fifo', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('fifo', entry, stat)
       that.doneOne()
     } else if (stat.isSocket()) {
-      that.emit('entry', target, stat)
-      that.emit('socket', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('socket', entry, stat)
       that.doneOne()
     } else if (stat.isFile()) {
-      that.emit('entry', target, stat)
-      that.emit('file', target, stat)
+      that.emit('entry', entry, stat)
+      that.emit('file', entry, stat)
       that.doneOne()
     } else {
-      that.emit('error', UnknownFileTypeError(), target, stat)
+      that.emit('error', UnknownFileTypeError(), entry, stat)
       that.doneOne()
     }
   })

@@ -34,7 +34,7 @@ exports['simple walk'] = function(beforeExit) {
         file, 'Unexpected file.')
       n--
     })
-    .on('error', function(er, target, stat) {
+    .on('error', function(er, entry, stat) {
       assert.ifError(er)
     })
     .on('end', function() {
@@ -65,7 +65,7 @@ exports['simple walk, exclude sub-directory tree'] = function(beforeExit) {
         file, 'Unexpected file.')
       n--
     })
-    .on('error', function(er, target, stat) {
+    .on('error', function(er, entry, stat) {
       assert.ifError(er)
     })
     .on('end', function() {
@@ -93,8 +93,8 @@ exports['error walk'] = function(beforeExit) {
         file, 'Unexpected file.')
       n--
     })
-    .on('error', function(er, target, stat) {
-      assert.equal(ERROR_WALK + '/d', target, 'Expect specific error.')
+    .on('error', function(er, entry, stat) {
+      assert.equal(ERROR_WALK + '/d', entry, 'Expect specific error.')
       n--
     })
     .on('end', function() {
@@ -116,8 +116,8 @@ exports['bad start'] = function(beforeExit) {
     .on('file', function(file) {
       n--
     })
-    .on('error', function(er, target, stat) {
-      assert.equal(BAD_START_WALK, target, 'Expect specific error.')
+    .on('error', function(er, entry, stat) {
+      assert.equal(BAD_START_WALK, entry, 'Expect specific error.')
       n--
     })
     .on('end', function() {
@@ -163,7 +163,7 @@ exports['symlink test'] = function(beforeExit) {
       )
       n--
     })
-    .on('error', function(er, target, stat) {
+    .on('error', function(er, entry, stat) {
       assert.ifError(er)
     })
     .on('end', function() {

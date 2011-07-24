@@ -1,7 +1,7 @@
 {
   "name": "walker",
   "description": "A simple directory tree walker.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Naitik Shah <n@daaku.org>",
   "keywords": ["utils", "fs", "filesystem"],
   "main": "index",
