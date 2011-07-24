@@ -5,6 +5,7 @@ var Walker = require('../index')
 const SIMPLE_WALK = __dirname + '/fixture-simple-walk'
 const ERROR_WALK = __dirname + '/fixture-error-walk'
 const BAD_START_WALK = __dirname + '/fixture-error-walk/d'
+const SYMLINK_WALK = __dirname + '/fixture-symlink-walk'
 
 // create/remove an in-accessable empty directory to trigger errors
 try {
@@ -125,5 +126,51 @@ exports['bad start'] = function(beforeExit) {
 
   beforeExit(function() {
     assert.equal(0, n, 'Ensure expected asserts.')
+  })
+}
+
+exports['symlink test'] = function(beforeExit) {
+  var n = 10
+
+  Walker(SYMLINK_WALK)
+    .on('dir', function(dir) {
+      assert.includes([SYMLINK_WALK, SYMLINK_WALK + '/d'],
+        dir, 'Unexpected directory: ' + dir)
+      n--
+    })
+    .on('file', function(file) {
+      assert.includes(
+        [
+          SYMLINK_WALK + '/a',
+          SYMLINK_WALK + '/b',
+          SYMLINK_WALK + '/d/e',
+          SYMLINK_WALK + '/d/f',
+          SYMLINK_WALK + '/d/g',
+        ],
+        file,
+        'Unexpected file: ' + file
+      )
+      n--
+    })
+    .on('symlink', function(symlink) {
+      assert.includes(
+        [
+          SYMLINK_WALK + '/c',
+          SYMLINK_WALK + '/e',
+        ],
+        symlink,
+        'Unexpected symlink: ' + symlink
+      )
+      n--
+    })
+    .on('error', function(er, target, stat) {
+      assert.ifError(er)
+    })
+    .on('end', function() {
+      n--
+    })
+
+  beforeExit(function() {
+    assert.equal(0, n, 'Ensure expected asserts: ' + n)
   })
 }
