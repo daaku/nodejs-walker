@@ -1,4 +1,7 @@
-/test/
-/.tags
-/lib-cov/
-/node_modules/
+.gitignore
+.npmignore
+.tags
+lib-cov/
+node_modules/
+npm-debug.log
+test/
