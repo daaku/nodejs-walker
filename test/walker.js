@@ -14,17 +14,25 @@ try {
 } catch(e) {}
 try { fs.mkdirSync(BAD_START_WALK, 0200) } catch(e) {}
 
-exports['simple walk'] = function(beforeExit) {
+function includes(list, item) {
+  for (var i=list.length-1; i > 0; i--) {
+    if (list[i] === item)
+      return true
+  }
+  return false
+}
+
+exports['simple walk'] = function(done) {
   var n = 9
 
   Walker(SIMPLE_WALK)
     .on('dir', function(dir) {
-      assert.includes([SIMPLE_WALK, SIMPLE_WALK + '/d'],
+      includes([SIMPLE_WALK, SIMPLE_WALK + '/d'],
         dir, 'Unexpected directory.')
       n--
     })
     .on('file', function(file) {
-      assert.includes(
+      includes(
         [SIMPLE_WALK + '/a',
          SIMPLE_WALK + '/b',
          SIMPLE_WALK + '/c',
@@ -39,14 +47,12 @@ exports['simple walk'] = function(beforeExit) {
     })
     .on('end', function() {
       n--
+      assert.equal(0, n, 'Ensure expected asserts.')
+      done()
     })
-
-  beforeExit(function() {
-    assert.equal(0, n, 'Ensure expected asserts.')
-  })
 }
 
-exports['simple walk, exclude sub-directory tree'] = function(beforeExit) {
+exports['simple walk, exclude sub-directory tree'] = function(done) {
   var n = 5
 
   Walker(SIMPLE_WALK)
@@ -58,7 +64,7 @@ exports['simple walk, exclude sub-directory tree'] = function(beforeExit) {
       n--
     })
     .on('file', function(file) {
-      assert.includes(
+      includes(
         [SIMPLE_WALK + '/a',
          SIMPLE_WALK + '/b',
          SIMPLE_WALK + '/c'],
@@ -70,14 +76,12 @@ exports['simple walk, exclude sub-directory tree'] = function(beforeExit) {
     })
     .on('end', function() {
       n--
+      assert.equal(0, n, 'Ensure expected asserts.')
+      done()
     })
-
-  beforeExit(function() {
-    assert.equal(0, n, 'Ensure expected asserts.')
-  })
 }
 
-exports['error walk'] = function(beforeExit) {
+exports['error walk'] = function(done) {
   var n = 6
 
   Walker(ERROR_WALK)
@@ -86,7 +90,7 @@ exports['error walk'] = function(beforeExit) {
       n--
     })
     .on('file', function(file) {
-      assert.includes(
+      includes(
         [ERROR_WALK + '/a',
          ERROR_WALK + '/b',
          ERROR_WALK + '/c'],
@@ -99,14 +103,12 @@ exports['error walk'] = function(beforeExit) {
     })
     .on('end', function() {
       n--
+      assert.equal(0, n, 'Ensure expected asserts.')
+      done()
     })
-
-  beforeExit(function() {
-    assert.equal(0, n, 'Ensure expected asserts.')
-  })
 }
 
-exports['bad start'] = function(beforeExit) {
+exports['bad start'] = function(done) {
   var n = 2
 
   Walker(BAD_START_WALK)
@@ -122,24 +124,22 @@ exports['bad start'] = function(beforeExit) {
     })
     .on('end', function() {
       n--
+      assert.equal(0, n, 'Ensure expected asserts.')
+      done()
     })
-
-  beforeExit(function() {
-    assert.equal(0, n, 'Ensure expected asserts.')
-  })
 }
 
-exports['symlink test'] = function(beforeExit) {
+exports['symlink test'] = function(done) {
   var n = 10
 
   Walker(SYMLINK_WALK)
     .on('dir', function(dir) {
-      assert.includes([SYMLINK_WALK, SYMLINK_WALK + '/d'],
+      includes([SYMLINK_WALK, SYMLINK_WALK + '/d'],
         dir, 'Unexpected directory: ' + dir)
       n--
     })
     .on('file', function(file) {
-      assert.includes(
+      includes(
         [
           SYMLINK_WALK + '/a',
           SYMLINK_WALK + '/b',
@@ -153,7 +153,7 @@ exports['symlink test'] = function(beforeExit) {
       n--
     })
     .on('symlink', function(symlink) {
-      assert.includes(
+      includes(
         [
           SYMLINK_WALK + '/c',
           SYMLINK_WALK + '/e',
@@ -168,9 +168,7 @@ exports['symlink test'] = function(beforeExit) {
     })
     .on('end', function() {
       n--
+      assert.equal(0, n, 'Ensure expected asserts: ' + n)
+      done()
     })
-
-  beforeExit(function() {
-    assert.equal(0, n, 'Ensure expected asserts: ' + n)
-  })
 }

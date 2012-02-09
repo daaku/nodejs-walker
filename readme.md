@@ -1,4 +1,4 @@
-walker
+walker [![Build Status](https://secure.travis-ci.org/nshah/nodejs-walker.png)](http://travis-ci.org/nshah/nodejs-walker)
 ======
 
 A nodejs directory walker. Broadcasts events for various file types as well as
