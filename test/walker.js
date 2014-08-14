@@ -172,3 +172,12 @@ exports['symlink test'] = function(done) {
       done()
     })
 }
+
+exports['global leak test'] = function(done) {
+  assert.throws(function () {
+    // This should throw because the `UnknownFileTypeError`
+    // should not be global
+    UnknownFileTypeError()
+  })
+  done()
+}
