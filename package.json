@@ -2,13 +2,12 @@
   "name": "walker",
   "description": "A simple directory tree walker.",
   "version": "1.0.7",
-  "homepage": "https://github.com/daaku/nodejs-walker",
+  "homepage": "https://github.com/pste/nodejs-walker",
   "author": "Naitik Shah <n@daaku.org>",
   "keywords": ["utils", "fs", "filesystem"],
   "main": "lib/walker",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/daaku/nodejs-walker"
+    
   },
   "scripts": { "test": "NODE_PATH=./lib mocha --ui exports" },
   "dependencies": {
